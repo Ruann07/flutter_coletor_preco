@@ -1,30 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flushbar/flushbar.dart';
+
 class configuracao extends StatefulWidget {
   @override
   _configuracaoState createState() => _configuracaoState();
 }
 
 class _configuracaoState extends State<configuracao> {
-  TextEditingController idLocalControler    = TextEditingController();
-  TextEditingController senhaLocalControler = TextEditingController();
-  TextEditingController idRemotoControler   = TextEditingController();
-  TextEditingController ipControler         = TextEditingController();
+  TextEditingController ipServidor    = TextEditingController();
+  TextEditingController usuarioServidor = TextEditingController();
+  TextEditingController senhaServidor = TextEditingController();
   bool select = false;
   @override
   void initState() {
     super.initState();
     configuracaoInicial();
   }
-  Future<bool> _onBackPresed() {
-    return _saveData();
-  }
-
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Configurações"),
-        backgroundColor: Colors.red[900],
+        backgroundColor: Colors.blue[900],
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.save),
+            onPressed: () {
+              _saveData();
+            },
+          )
+        ],
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.only(left: 12.0, right: 12.0),
@@ -34,10 +39,13 @@ class _configuracaoState extends State<configuracao> {
             Container(
               child: Row(
                 children: <Widget>[
-                  Text( "ID do Sistema Local: " ),
+                  Text( "IP do Servidor Ftp: " ),
                   Expanded(
                     child: TextFormField(
-                      controller: idLocalControler,
+                      controller: ipServidor,
+                      keyboardType: TextInputType.numberWithOptions(
+                          decimal: true
+                      ),
                     ),
                   )
                 ],
@@ -46,10 +54,10 @@ class _configuracaoState extends State<configuracao> {
             Container(
               child: Row(
                 children: <Widget>[
-                  Text( "Senha do Sistema Local: " ),
+                  Text( "Nome do usuario: " ),
                   Expanded(
                     child: TextFormField(
-                      controller: senhaLocalControler,
+                      controller: usuarioServidor,
                     ),
                   )
                 ],
@@ -58,22 +66,10 @@ class _configuracaoState extends State<configuracao> {
             Container(
               child: Row(
                 children: <Widget>[
-                  Text( "ID do Sistema Remoto: " ),
+                  Text( "Senha do Servidor: " ),
                   Expanded(
                     child: TextFormField(
-                      controller: idRemotoControler,
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Container(
-              child: Row(
-                children: <Widget>[
-                  Text( "IP do Sistema: " ),
-                  Expanded(
-                    child: TextFormField(
-                      controller: ipControler,
+                      controller: senhaServidor,
                     ),
                   )
                 ],
@@ -105,20 +101,24 @@ class _configuracaoState extends State<configuracao> {
   configuracaoInicial() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      idLocalControler.text = prefs.getString('idLocal') ?? "";
-      idRemotoControler.text = prefs.getString('idRemoto') ?? "";
-      senhaLocalControler.text = prefs.getString('senhaLocal') ?? "";
-      ipControler.text = prefs.getString('ipServidor') ?? "";
+      ipServidor.text = prefs.getString('ipServidor') ?? "";
+      usuarioServidor.text = prefs.getString('usuarioServidor') ?? "";
+      senhaServidor.text = prefs.getString("senhaServidor") ?? "";
       select = prefs.getBool('celular') ?? false;
     });
   }
   _saveData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('idLocal', idLocalControler.text);
-    prefs.setString('senhaLocal', senhaLocalControler.text);
-    prefs.setString('idRemoto', idRemotoControler.text);
-    prefs.setString('ipServidor', ipControler.text);
+    prefs.setString('ipServidor', ipServidor.text);
+    prefs.setString('usuarioServidor', usuarioServidor.text);
+    prefs.setString('senhaServidor', senhaServidor.text);
     prefs.setBool('celular', select);
-    Navigator.pop(context);
+    Flushbar(
+      message: "Salvou com Sucesso !",
+      backgroundColor: Colors.blue[900],
+      margin: EdgeInsets.all(8),
+      borderRadius: 8,
+      duration: Duration(milliseconds: 800),
+    ).show(context);
   }
 }

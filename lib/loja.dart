@@ -57,7 +57,7 @@ class _LojaState extends State<Loja> {
     return Scaffold(
         appBar: AppBar(
           title: Text("Loja " + cNomeLoja),
-          backgroundColor: Colors.red[900],
+          backgroundColor: Colors.blue[900],
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.file_upload),
@@ -90,7 +90,7 @@ class _LojaState extends State<Loja> {
                       },
                       decoration: InputDecoration(
                           labelText: 'Codigo de barras',
-                          fillColor: Colors.redAccent
+                          fillColor: Colors.blueAccent
                       ),
                     ),
                   ),

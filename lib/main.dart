@@ -4,16 +4,17 @@ import 'dart:io';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
-import 'configuracao.dart';
 import 'loja.dart';
+import 'configuracao.dart';
 
 enum Configuracao {conf}
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     initialRoute: '/',
+    title: "Coletor Preco",
     theme: ThemeData(
-      primaryColor: Colors.red[900]
+      primaryColor: Colors.blue[900]
     ),
     routes: {
       '/': (context) => MyApp(),
@@ -56,10 +57,18 @@ class _MyAppState extends State<MyApp> {
       }
     });
   }
+
+  _navigateDisplaySnack() async {
+      await Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => configuracao()),
+      );
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.red[900],
+        backgroundColor: Colors.blue[900],
         title: Text("Coletor Preco"),
         centerTitle: true,
         actions: <Widget>[
@@ -67,10 +76,7 @@ class _MyAppState extends State<MyApp> {
             icon: Icon(Icons.settings, color: Colors.white,),
             onPressed: () {
               setState(() {
-                Navigator.pushNamed(
-                    context,
-                    '/configuracao',
-                );
+                _navigateDisplaySnack();
               });
             },
           )
@@ -104,7 +110,9 @@ class _MyAppState extends State<MyApp> {
                         ),
                         duration: Duration(seconds: 3),
                       );
-                      Scaffold.of(context).showSnackBar(snack); // mostrar snack bar
+                      Scaffold.of(context)
+                        ..removeCurrentSnackBar()
+                        ..showSnackBar(snack); // mostrar snack bar
                     });
                   },
                   direction: DismissDirection.startToEnd,
@@ -139,7 +147,7 @@ class _MyAppState extends State<MyApp> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.blue[800],
         child: Icon(Icons.add),
         onPressed: () {
           setState(() {
@@ -175,13 +183,13 @@ class _MyAppState extends State<MyApp> {
                 ),
                 actions: <Widget>[
                   FlatButton(
-                      child: Text('Cancelar'),
+                      child: Text('Cancelar', style: TextStyle( color: Colors.blue[800] ),),
                       onPressed: () {
                         _newEmpresa.text = "";
                         Navigator.pop(context);
                       }),
                   FlatButton(
-                      child: Text('Salvar'),
+                      child: Text('Salvar',style: TextStyle( color: Colors.blue[800] ), ),
                       onPressed: _addEmpresas
                   )
                 ],
