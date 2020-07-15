@@ -108,7 +108,7 @@ class _MyAppState extends State<MyApp> {
                             });
                           },
                         ),
-                        duration: Duration(seconds: 3),
+                        duration: Duration(seconds: 2),
                       );
                       Scaffold.of(context)
                         ..removeCurrentSnackBar()
@@ -146,6 +146,7 @@ class _MyAppState extends State<MyApp> {
           );
         },
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blue[800],
         child: Icon(Icons.add),

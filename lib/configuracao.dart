@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flushbar/flushbar.dart';
 
 class configuracao extends StatefulWidget {
   @override
@@ -22,14 +21,11 @@ class _configuracaoState extends State<configuracao> {
       appBar: AppBar(
         title: Text("Configurações"),
         backgroundColor: Colors.blue[900],
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.save),
-            onPressed: () {
-              _saveData();
-            },
-          )
-        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.save),
+        backgroundColor: Colors.blue[900],
+        onPressed: _saveData,
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.only(left: 12.0, right: 12.0),
@@ -75,24 +71,6 @@ class _configuracaoState extends State<configuracao> {
                 ],
               ),
             ),
-            Container(
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: CheckboxListTile(
-                      title: Text("Ultilização pelo smartphones"),
-                      value: select,
-                      onChanged: (newValue) {
-                        setState(() {
-                          select = newValue;
-                        });
-                      },
-                      activeColor: Colors.blue,
-                    )
-                  )
-                ],
-              ),
-            ),
           ],
         ),
       ),
@@ -113,12 +91,6 @@ class _configuracaoState extends State<configuracao> {
     prefs.setString('usuarioServidor', usuarioServidor.text);
     prefs.setString('senhaServidor', senhaServidor.text);
     prefs.setBool('celular', select);
-    Flushbar(
-      message: "Salvou com Sucesso !",
-      backgroundColor: Colors.blue[900],
-      margin: EdgeInsets.all(8),
-      borderRadius: 8,
-      duration: Duration(milliseconds: 800),
-    ).show(context);
+    Navigator.pop(context);
   }
 }

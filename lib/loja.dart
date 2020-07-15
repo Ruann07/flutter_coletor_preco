@@ -2,9 +2,11 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:ftpclient/ftpclient.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'main.dart';
 
 class Loja extends StatefulWidget {
@@ -13,6 +15,9 @@ class Loja extends StatefulWidget {
 }
 
 class _LojaState extends State<Loja> {
+  String enderecoServidor;
+  String userServidor;
+  String passServidor;
   String _barcode;
   bool celular = false;
   List _listProdutos = [];
@@ -62,8 +67,19 @@ class _LojaState extends State<Loja> {
             IconButton(
               icon: Icon(Icons.file_upload),
               onPressed: () {
-                _importarCsv(cNomeLoja).then((value) {
-                  print(value);
+                _importarCsv(cNomeLoja).then((value) async {
+                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                    enderecoServidor = prefs.getString('ipServidor') ?? "";
+                    userServidor = prefs.getString('usuarioServidor') ?? "";
+                    passServidor = prefs.getString("senhaServidor") ?? "";
+                    
+                    FTPClient ftpClient = FTPClient(enderecoServidor, user: userServidor, pass: passServidor);
+                    ftpClient.connect();
+                    try {
+                      ftpClient.uploadFile(File(value));
+                    } finally {
+                      ftpClient.disconnect();
+                    }
                 });
               },
             )
