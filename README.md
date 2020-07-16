@@ -15,16 +15,26 @@ For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
+
+## Screenshots
+
+
+### Tela Inicial
 ![Alt text](/screenshots/imagem1.jpg?raw=true "Tela Inicial")
 
+### Configuração
 ![Alt text](/screenshots/imagem2.jpg?raw=true "Configuração")
 
+### Tela Inicial 2
 ![Alt text](/screenshots/imagem3.jpg?raw=true "Tela Inicial 2")
 
+### Tela das Lojas
 ![Alt text](/screenshots/imagem4.jpg?raw=true "Tela das Lojas")
 
+### Adicionando produto em uma loja
 ![Alt text](/screenshots/imagem5.jpg?raw=true "Adicionando produto em uma loja")
 
+### Tela da Loja com produto
 ![Alt text](/screenshots/imagem6.jpg?raw=true "Tela da Loja com produto")
 
 
