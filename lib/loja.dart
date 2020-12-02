@@ -305,7 +305,7 @@ class _LojaState extends State<Loja> {
 
   }
 }
-class Argumentos_list {
+class Argumentoslist {
   final List list;
-  Argumentos_list( this.list );
+  Argumentoslist( this.list );
 }

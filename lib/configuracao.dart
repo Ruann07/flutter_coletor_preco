@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class configuracao extends StatefulWidget {
+class Settings extends StatefulWidget {
   @override
-  _configuracaoState createState() => _configuracaoState();
+  Configuralcao createState() => Configuralcao();
 }
 
-class _configuracaoState extends State<configuracao> {
+class Configuralcao extends State<Settings> {
   TextEditingController ipServidor    = TextEditingController();
   TextEditingController usuarioServidor = TextEditingController();
   TextEditingController senhaServidor = TextEditingController();

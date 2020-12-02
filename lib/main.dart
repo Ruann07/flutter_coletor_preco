@@ -19,7 +19,7 @@ void main() {
     routes: {
       '/': (context) => MyApp(),
       '/second': (context) => Loja(),
-      '/configuracao': (context) => configuracao(),
+      '/configuracao': (context) => Settings(),
     },
   ));
 }
@@ -61,7 +61,7 @@ class _MyAppState extends State<MyApp> {
   _navigateDisplaySnack() async {
       await Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => configuracao()),
+        MaterialPageRoute(builder: (context) => Settings()),
       );
   }
 
